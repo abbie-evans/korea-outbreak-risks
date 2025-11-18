@@ -211,7 +211,6 @@ def prob_outbreak(year, suscep='constant', inf='constant', r0=2):
 
 p, PLO, tc_p = prob_outbreak(2000, 'constant', 'constant', 2)
 
-# plt.figure()
 fig = plt.gcf()
 fig.set_size_inches(8, 6)
 plt.bar(range(1, 17), p, color='lightblue', edgecolor='black', linewidth=1)
