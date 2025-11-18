@@ -44,9 +44,9 @@ def calculate_contact_matrix(contact_matrix, population):
     C = contact_matrix
     new_pop = population
 
-    pop_data = pd.read_csv('population.csv', header=0, dtype={'Data': str, 'Population': float})
+    pop_data = pd.read_csv('Data/korea_population.csv', header=0, dtype={'Data': str, 'Population': float})
     N = pop_data[(pop_data['Region'] == 'Nationwide') & (pop_data['Year'] == 2020)]['Population'].values.flatten()
-    N = pd.read_csv('popage_total2020.csv', usecols=range(2,23), skiprows=1, header=None, dtype=float).values[96]
+    N = pd.read_csv('Data/popage_total2020.csv', usecols=range(2,23), skiprows=1, header=None, dtype=float).values[96]
     N[-6] = np.sum(N[-6:])
     N = N[:-5]
     N = N*1000
@@ -105,8 +105,10 @@ def prob_outbreak(year, r0=2, change=False):
     -----------
     year : int
         Year for which the probability of a local outbreak is to be calculated.
-    location : str
-        Location for which the probability of a local outbreak is to be calculated.
+    r0 : float
+        Basic reproduction number.
+    change : bool
+        Whether to modify the contact matrix to reflect increased retirement age.
 
     Returns
     --------
@@ -116,18 +118,17 @@ def prob_outbreak(year, r0=2, change=False):
         - PLO : float
             Average outbreak probability.
     """
-    pop_data = pd.read_csv('population.csv', header=0, dtype={'Data': str, 'Population': float})
-    # baseline_contact_matrix = pd.read_csv('2025_contact_matrix_v2_pairwise.csv', header=None, dtype=float).values
+    pop_data = pd.read_csv('Data/korea_population.csv', header=0, dtype={'Data': str, 'Population': float})
     # have baseline as 2020 matrix
-    contact_matrix = pd.read_csv('2025_contact_matrix_v2_pairwise.csv', header=None, dtype=float).values
-    baseline_contact_matrix = pd.read_csv('contact_matrix_2020_new.csv', header=None, dtype=float).values
+    contact_matrix = pd.read_csv('Data/2025_contact_matrix_pairwise.csv', header=None, dtype=float).values
+    baseline_contact_matrix = pd.read_csv('Data/contact_matrix_2020.csv', header=None, dtype=float).values
     pop = pop_data[(pop_data['Region'] == 'Nationwide') & (pop_data['Year'] == year)]['Population'].values.flatten()
     pop[-2] = pop[-2] + pop[-1]
     pop = pop[:-1]
 
     if change == True:
         C = calculate_contact_matrix(baseline_contact_matrix, pop)
-        C_2050 = pd.read_csv('2050_contact_matrix.csv', header=None, dtype=float).values
+        C_2050 = pd.read_csv('Data/2050_contact_matrix.csv', header=None, dtype=float).values
         C_ = C_2050.copy()
         # calculate average number of contacts in ages 45-60
         avg_contacts = (sum(C[9, :])*pop[9] + sum(C[10, :])*pop[10] + sum(C[11, :])*pop[11])/(np.sum(pop[9:12]))
@@ -176,5 +177,4 @@ plt.tight_layout()
 ax = plt.gca()
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
-# plt.savefig('2025-exp.png', dpi=300, bbox_inches='tight')
 plt.show()
