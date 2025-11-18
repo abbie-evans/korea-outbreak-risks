@@ -123,7 +123,7 @@ def prob_outbreak(year, r0=2):
 
     N_prop = pop/np.sum(pop)
 
-    # Calculate Beta=B*C*sigma using the reference contact matrix for beta
+    # Calculate Beta=B*C using the reference contact matrix for beta
     Beta = calculate_b(contact_matrix, r0)*C
     eigenvalues = np.linalg.eigvals(Beta)
     print("Maximum eigenvalue of beta:", np.max(eigenvalues))
