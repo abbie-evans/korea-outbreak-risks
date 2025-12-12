@@ -50,20 +50,35 @@ def calculate_contact_matrix(contact_matrix, population):
     N = N[:-5]
     N = N*1000
 
+    # calculate mean number of contacts in C
+    mean_contacts = 0
+    for i in range(16):
+        for j in range(16):
+            mean_contacts += C[i,j]*N[i].item()
+    mean_contacts = mean_contacts/np.sum(N)
+    print("Mean number of contacts in C:", mean_contacts)
+
     # Normalised density correction
-    k = 0
-    C_sum = 0
-    C_hat = np.zeros((16,16))
+    ref_sum = 0
+    proj_sum = 0
     for i in range(16):
         for j in range(16):
-            C_hat[i,j] = C[i,j]*(np.sum(N)*new_pop[j])/(np.sum(new_pop)*N[j].item())
+            ref_sum += C[i,j]*N[i]
+            proj_sum += C[i,j]*new_pop[i]*new_pop[j]/N[j]
+
+    C_ = np.zeros((16,16))
     for i in range(16):
         for j in range(16):
-            C_sum += C_hat[i,j]*new_pop[i]
-            k += C[i,j]*N[i].item()
-    k = k/np.sum(N)
-    C_sum = C_sum/np.sum(new_pop)
-    return C_hat/C_sum*k
+            C_[i,j] = C[i,j]*np.sum(new_pop)*new_pop[j]/(np.sum(N)*N[j]) * (ref_sum/proj_sum)
+
+    # calculate mean number of contacts in C_
+    mean_contacts_corrected = 0
+    for i in range(16):
+        for j in range(16):
+            mean_contacts_corrected += C_[i,j]*new_pop[i]
+    mean_contacts_corrected = mean_contacts_corrected/np.sum(new_pop)
+    print("Mean number of contacts in corrected C:", mean_contacts_corrected)
+    return C_
 
 def system_of_equations(q, beta):
     """
