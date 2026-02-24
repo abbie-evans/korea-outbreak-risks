@@ -131,7 +131,7 @@ def prob_outbreak(year, r0=2):
     p = 1 - solution
     return p, np.sum(p * N_prop)
 
-p, PLO = prob_outbreak(2050, 2)
+p, PLO = prob_outbreak(2025, 2)
 
 fig = plt.gcf()
 fig.set_size_inches(8, 6)
@@ -150,4 +150,5 @@ plt.tight_layout()
 ax = plt.gca()
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
+plt.savefig('Figures/Outbreak_probability_nigeria_2025.svg', bbox_inches='tight')
 plt.show()
