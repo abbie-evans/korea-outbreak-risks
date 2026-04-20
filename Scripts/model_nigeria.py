@@ -161,7 +161,7 @@ plt.tight_layout()
 ax = plt.gca()
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
-# plt.savefig('Figures/Outbreak_probability_nigeria_2000.svg', bbox_inches='tight')
+plt.savefig('Figures/Outbreak_probability_nigeria_2000.svg', bbox_inches='tight') # Can change year to 2000, 2025, or 2050
 plt.show()
 
 # Figure 5A
@@ -202,5 +202,5 @@ plt.tight_layout()
 ax = plt.gca()
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
-# plt.savefig('Figures/Proportions_korea.svg', bbox_inches='tight')
+plt.savefig('Figures/Proportions_nigeria.svg', bbox_inches='tight')
 plt.show()
