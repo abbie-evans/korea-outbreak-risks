@@ -10,3 +10,5 @@ Listed below are the scripts required to reproduce the corresponding figure.
 - Figure S1: `pairwise_correction.py`
 - Figure S2: `pathogen_characteristics.py`
 - Figure S3: `r0_pmo.py`
+
+Reproduced figures will be saved into the `Figures` directory.
