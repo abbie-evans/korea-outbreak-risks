@@ -13,6 +13,8 @@ def calculate_b(contact_matrix, suscep='constant', inf='constant', r0=2):
         Contact matrix.
     suscep : str
         Type of susceptibility.
+    inf : str
+        Type of infectiousness.
     r0 : float
         Basic reproduction number.
 
@@ -55,7 +57,7 @@ def calculate_b(contact_matrix, suscep='constant', inf='constant', r0=2):
     print(b)
     return b
 
-def calculate_contact_matrix(contact_matrix, population, year):
+def calculate_contact_matrix(contact_matrix, population):
     """
     Returns the contact matrix C.
 
@@ -152,7 +154,7 @@ def prob_outbreak(year, suscep='constant', inf='constant', r0=2):
     pop[-2] = pop[-2] + pop[-1]
     pop = pop[:-1]
 
-    C = calculate_contact_matrix(baseline_contact_matrix, pop, year)
+    C = calculate_contact_matrix(baseline_contact_matrix, pop)
 
     if (suscep != 'constant' and inf != 'constant'):
         raise ValueError("Only one of suscep or inf can be non-constant.")
