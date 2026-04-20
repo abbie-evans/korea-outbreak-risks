@@ -1,4 +1,4 @@
-Data and Python code accompanying Evans et al., "Demographic changes and behavioural responses shape vulnerability to infectious disease outbreaks"
+Data and Python code accompanying Evans *et al*., "Demographic changes and behavioural responses shape vulnerability to infectious disease outbreaks"
 
 To reproduce the figures, run the following scripts:
 
