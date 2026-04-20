@@ -1,4 +1,7 @@
 ## Reproducing figures
+
+Listed below are the scripts required to reproduce the corresponding figure.
+
 - Figure 1
 - Figure 2: `model.py`
 - Figure 3
