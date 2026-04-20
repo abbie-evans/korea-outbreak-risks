@@ -178,7 +178,7 @@ fig = plt.gcf()
 fig.set_size_inches(8, 6)
 plt.bar(range(1, 17), p, color='#ffc067', edgecolor='black', linewidth=1)
 plt.axhline(y=PLO, color='black', linewidth=2)
-plt.axhline(y=tc_p, color='red', linewidth=2, linestyle='--') # Optional
+plt.axhline(y=tc_p, color='red', linewidth=2, linestyle='--')
 plt.xlabel('Age group of index case', labelpad=10, fontsize=24)
 plt.ylabel('Major outbreak probability', labelpad=10, fontsize=24)
 plt.xticks(np.arange(1, 17), ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39',
@@ -192,5 +192,5 @@ plt.tight_layout()
 ax = plt.gca()
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
-# plt.savefig('Figures/Outbreak_probability_2000.svg', bbox_inches='tight')
+plt.savefig('Figures/Outbreak_probability_2000.svg', bbox_inches='tight') # Can change year to 2000, 2025, or 2050
 plt.show()
