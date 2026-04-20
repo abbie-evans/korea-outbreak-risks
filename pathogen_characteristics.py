@@ -199,6 +199,35 @@ def prob_outbreak(year, suscep='constant', inf='constant', r0=2):
 
     return p, np.sum(p * N_prop)
 
+# Figure 3A
+
+sigma1 = np.ones(16)
+sigma = np.linspace(0.5, 2.0, 16)
+sigma2 = sigma / np.sum(sigma) * 16
+sigma = np.linspace(2.0, 0.5, 16)
+sigma3 = sigma / np.sum(sigma) * 16
+sigma = np.array([1.5, 1.2, 1.0, 0.8, 0.8, 0.8, 0.8, 0.8,
+                  0.8, 0.8, 0.8, 0.8, 1.0, 1.2, 1.5, 1.8])
+sigma4 = sigma / np.sum(sigma) * 16
+
+plt.figure(figsize=(8, 6))
+plt.plot(sigma1, label='Uniform', linewidth=2, color='#386cb0')
+plt.plot(sigma2, label='Increasing', linewidth=2, color='#fdc086')
+plt.plot(sigma3, label='Decreasing', linewidth=2, color='#beaed4')
+plt.plot(sigma4, label='U-Shaped', linewidth=2, color='#7fc97f')
+plt.xticks(np.arange(0, 16), ['0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39',
+                              '40-44', '45-49', '50-54', '55-59', '60-64', '65-69', '70-74', '75+'],
+                              rotation=45, fontsize=20)
+plt.yticks(fontsize=20)
+plt.xlabel(r'Age group', labelpad=10, fontsize=24)
+plt.ylabel('Susceptibility /\nInfectiousness', labelpad=10, fontsize=24)
+plt.tight_layout()
+ax = plt.gca()
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+# plt.savefig('Figures/susc_inf_lines.svg', bbox_inches='tight')
+plt.show()
+
 # The effect of the susceptibility profile over time (can be changed to consider the infectiousness profile instead)
 
 p, PLO_2000 = prob_outbreak(2000, 'constant', 'constant', 2)
@@ -221,6 +250,8 @@ PLO1 = [PLO_2000, PLO_2025, PLO_2050]
 PLO2 = [PLO2_2000, PLO2_2025, PLO2_2050]
 PLO3 = [PLO3_2000, PLO3_2025, PLO3_2050]
 PLO4 = [PLO4_2000, PLO4_2025, PLO4_2050]
+
+# Figure 3B-C
 
 PLO_values = [PLO1, PLO2, PLO3, PLO4]
 PLO_labels = ['A (Constant)', 'B (Linear increase)', 'C (Linear decrease)', 'D (U-shaped)']
@@ -246,6 +277,8 @@ ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 # plt.savefig('Figures/infectiousness_profile_effect.svg', bbox_inches='tight')
 plt.show()
+
+# Figure S2
 
 p, PLO_2050 = prob_outbreak(2000, 'constant', 'constant', 2)
 p2, PLO2_2050 = prob_outbreak(2000, 'constant', 'linear_increase', 2)
