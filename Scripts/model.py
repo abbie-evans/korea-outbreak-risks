@@ -69,7 +69,7 @@ def calculate_contact_matrix(contact_matrix, population):
     plt.xticks(np.arange(0, 16), labels=['0', '', '10', '', '20', '', '30', '', '40', '', '50', '', '60', '', '70', ''], fontsize=20)
     plt.yticks(np.arange(0, 16), labels=['0', '', '10', '', '20', '', '30', '', '40', '', '50', '', '60', '', '70', ''], fontsize=20, rotation=0)
     plt.tight_layout()
-    # plt.savefig(f'Figures/Contact_matrix_{year}.svg', bbox_inches='tight')
+    plt.savefig(f'Figures/Contact_matrix_{year}.svg', bbox_inches='tight')
     plt.show()
 
     total_contacts = np.sum(C_, axis=1)
@@ -84,7 +84,7 @@ def calculate_contact_matrix(contact_matrix, population):
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     plt.tight_layout()
-    # plt.savefig(f'Figures/Total_contacts_{year}.svg', bbox_inches='tight')
+    plt.savefig(f'Figures/Total_contacts_{year}.svg', bbox_inches='tight')
     plt.show()
 
     return C_
