@@ -9,4 +9,4 @@ Listed below are the scripts required to reproduce the corresponding figure.
 - Figure 5: `model_nigeria.py`
 - Figure S1: `pairwise_correction.py`
 - Figure S2: `pathogen_characteristics.py`
-- Figure S3
+- Figure S3: `r0_pmo.py`
