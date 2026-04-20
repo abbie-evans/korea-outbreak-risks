@@ -70,7 +70,7 @@ def calculate_contact_matrix(contact_matrix, population, year):
     plt.xticks(np.arange(0, 16), labels=['0', '', '10', '', '20', '', '30', '', '40', '', '50', '', '60', '', '70', ''], fontsize=20)
     plt.yticks(np.arange(0, 16), labels=['0', '', '10', '', '20', '', '30', '', '40', '', '50', '', '60', '', '70', ''], fontsize=20, rotation=0)
     plt.tight_layout()
-    # plt.savefig(f'Figures/Contact_matrix_pairwise_{year}.svg', bbox_inches='tight')
+    plt.savefig(f'Figures/Contact_matrix_pairwise_{year}.svg', bbox_inches='tight')
     plt.show()
 
     # Calculate the total number of contacts for each age group and plot bar plot
@@ -86,7 +86,7 @@ def calculate_contact_matrix(contact_matrix, population, year):
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     plt.tight_layout()
-    # plt.savefig(f'Figures/Total_contacts_pairwise_{year}.svg', bbox_inches='tight')
+    plt.savefig(f'Figures/Total_contacts_pairwise_{year}.svg', bbox_inches='tight')
     plt.show()
 
     return C_
@@ -196,5 +196,5 @@ plt.tight_layout()
 ax = plt.gca()
 ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
-# plt.savefig('Figures/Outbreak_probability_pairwise_2000.svg', bbox_inches='tight')
+plt.savefig('Figures/Outbreak_probability_pairwise_2000.svg', bbox_inches='tight') # can change year to 2020, 2025, 2050
 plt.show()
