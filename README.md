@@ -2,7 +2,7 @@ Data and Python code accompanying Evans *et al*., "Demographic changes and behav
 
 To reproduce the figures, run the following scripts:
 
-- Figure 1
+- Figure 1: `Figure_1.py`
 - Figure 2: `model.py`
 - Figure 3: `pathogen_characteristics.py`
 - Figure 4: `behavioural_responses.py`
