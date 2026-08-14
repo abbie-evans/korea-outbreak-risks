@@ -91,7 +91,7 @@ def calculate_contact_matrix(contact_matrix, population, year):
 
     return C_
 
-def system_of_equations(q, beta):
+def system_of_equations(q, beta, k=1):
     """
     System of equations for the major outbreak probability.
 
@@ -101,31 +101,27 @@ def system_of_equations(q, beta):
         Probability of major outbreak for each age group.
     beta : numpy.ndarray
         Beta parameter.
+    k : float
+        Dispersion parameter.
 
     Returns
     --------
     numpy.ndarray
         System of equations.
     """
-    n = len(q)  # Number of q_i
+    n = len(q)
     equations = np.zeros(n)
 
     for i in range(n):
-        # Compute the sum in the first term of the equation
-        sum_beta_ik = np.sum(beta[i, :])  # sum for k=1 to 16
-        first_term = 1 / (1 + sum_beta_ik)
-
-        # Compute the sum in the second term of the equation
-        second_term = 0
+        first_term = 0.0
         for j in range(n):
-            second_term += (beta[i, j] / (1 + sum_beta_ik)) * q[i] * q[j]
-        
-        # Equation for q_i
-        equations[i] = q[i] - (first_term + second_term)
-    
+            first_term += beta[i, j] * (1 - q[j])
+
+        equations[i] = q[i] - (1 + first_term / k) ** (-k)
+
     return equations
 
-def prob_outbreak(year, r0=2):
+def prob_outbreak(year, r0=2, k=1):
     """
     Returns the probability of a major outbreak given an index case in each age group.
     
@@ -135,6 +131,8 @@ def prob_outbreak(year, r0=2):
         Year for which the probability of a major outbreak is to be calculated.
     r0 : float
         Basic reproduction number.
+    k : float
+        Dispersion parameter.
 
     Returns
     --------
@@ -166,7 +164,7 @@ def prob_outbreak(year, r0=2):
     initial_guess = np.ones(16)*0.3
 
     # Solve the system of equations
-    solution = fsolve(system_of_equations, initial_guess, args=(Beta,))
+    solution = fsolve(system_of_equations, initial_guess, args=(Beta,k))
     p = 1 - solution
 
     # total contacts for age group i
@@ -176,7 +174,7 @@ def prob_outbreak(year, r0=2):
 
     return p, np.sum(p * N_prop), np.sum(tc*pop*p)/np.sum(tc*pop)
 
-p, PLO, tc_p = prob_outbreak(2050, 2) # can change year to 2020, 2025, 2050
+p, PLO, tc_p = prob_outbreak(2050, 2, k=1) # can change year to 2020, 2025, 2050
 
 fig = plt.gcf()
 fig.set_size_inches(8, 6)
